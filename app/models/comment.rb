@@ -3,4 +3,14 @@ class Comment < ApplicationRecord
   belongs_to :project
 
   validates :body, presence: true
+
+  after_create_commit -> {
+    broadcast_append_to(
+      "project_#{project.id}_conversation",
+      target: "conversation_#{project.id}",
+      partial: "comments/comment",
+      locals: { comment: self }
+    )
+  }
+
 end

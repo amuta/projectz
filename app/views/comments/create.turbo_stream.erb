@@ -1,4 +1,4 @@
-<%= turbo_stream.append "conversation_#{@project.id}" do %>
+<%= turbo_stream.prepend "conversation_#{@project.id}" do %>
   <%= render @comment %>
 <% end %>
 
