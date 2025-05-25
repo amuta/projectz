@@ -84,4 +84,6 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+
+  config.include SessionTestHelper, type: :request
 end

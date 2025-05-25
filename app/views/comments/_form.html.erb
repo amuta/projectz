@@ -1,0 +1,4 @@
+<%= form_with model: [project, comment], local: true, data: { turbo_frame: "conversation_#{project.id}" } do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit "Post" %>
+<% end %>

@@ -1,0 +1,8 @@
+<div class="log-entry mb-2">
+  <small>
+    <%= change_log.user&.email_address || "System" %> changed status
+    <strong><%= change_log.changed_data["from"] %></strong> →
+    <strong><%= change_log.changed_data["to"] %></strong>
+    at <%= change_log.created_at.strftime("%Y-%m-%d %H:%M") %>
+  </small>
+</div>

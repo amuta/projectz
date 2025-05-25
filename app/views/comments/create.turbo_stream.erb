@@ -1,0 +1,8 @@
+<%= turbo_stream.append "conversation_#{@project.id}" do %>
+  <%= render @comment %>
+<% end %>
+
+<%= turbo_stream.replace "new_comment_#{@project.id}" do %>
+  <%= render partial: "comments/form",
+             locals: { project: @project, comment: Comment.new } %>
+<% end %>

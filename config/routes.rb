@@ -13,4 +13,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :projects, only: %i[index show edit update] do
+    resources :comments, only: :create
+    patch :change_status, on: :member
+  end
+
+  root "projects#index"
 end

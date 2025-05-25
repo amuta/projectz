@@ -1,0 +1,28 @@
+<h1><%= @project.name %></h1>
+
+<div class="status-frame" data-controller="status">
+  <%= turbo_frame_tag "project_#{@project.id}_status" do %>
+    <p>Status: <strong><%= @project.status %></strong></p>
+    <%= form_with model: @project, url: change_status_project_path(@project), method: :patch, data: { turbo_frame: "project_#{@project.id}_status" } do |f| %>
+      <%= f.select :status, Project.statuses.keys %>
+      <%= f.submit "Change" %>
+    <% end %>
+  <% end %>
+</div>
+
+<hr>
+project
+<h2>Conversation history</h2>
+<%= turbo_frame_tag "conversation_#{@project.id}" do %>
+  <% (@project.change_logs + @project.comments).sort_by(&:created_at).each do |entry| %>
+    <%= render entry %>
+  <% end %>
+<% end %>
+
+<hr>
+
+<h3>New comment</h3>
+<%= turbo_frame_tag "new_comment_#{@project.id}" do %>
+  <%= render partial: "comments/form",
+             locals: { project: @project, comment: Comment.new } %>
+<% end %>

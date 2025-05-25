@@ -1,0 +1,19 @@
+<%= turbo_frame_tag dom_id(project, :status) do %>
+  <div class="mb-2">
+    <strong>Status:</strong>
+    <span class="badge bg-secondary"><%= project.status.humanize %></span>
+  </div>
+
+  <%= form_with model: project,
+                url: change_status_project_path(project),
+                method: :patch,
+                data: { turbo_frame: dom_id(project, :status) } do |f| %>
+    <div class="input-group">
+      <%= f.select :status,
+                   Project.statuses.keys.map { |s| [s.humanize, s] },
+                   {},
+                   class: "form-select" %>
+      <button class="btn btn-primary" type="submit">Change</button>
+    </div>
+  <% end %>
+<% end %>

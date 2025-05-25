@@ -1,7 +1,9 @@
 class Project < ApplicationRecord
-    include Auditable
+	include Auditable
 
-    has_many :comments, dependent: :destroy
+	has_many :comments, dependent: :destroy
 
-    enum :status, { draft: 0, active: 1, on_hold: 2, completed: 3, cancelled: 4 }
+	enum :status, { draft: 0, active: 1, on_hold: 2, completed: 3, cancelled: 4 }
+
+	validates :name, presence: true
 end

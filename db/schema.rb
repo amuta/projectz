@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_050802) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_120202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,7 +18,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_050802) do
     t.string "recordable_type", null: false
     t.bigint "recordable_id", null: false
     t.jsonb "changed_data"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recordable_type", "recordable_id"], name: "index_change_logs_on_recordable"
