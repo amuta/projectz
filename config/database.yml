@@ -30,9 +30,7 @@ development:
 test:
   <<: *default
   database: projectz_test
-  username: postgres
-  host: localhost
-  port: 5432
+  url: <%= ENV["DATABASE_URL"] || "postgres://postgres:@localhost:5432" %> 
 
 production:
   primary: &primary_production
