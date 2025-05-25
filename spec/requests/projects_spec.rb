@@ -36,7 +36,7 @@ RSpec.describe "Projects", type: :request do
       expect(response.media_type).to eq("text/vnd.turbo-stream.html")
 
       # Ensure turbo-stream template appended the new log
-      expect(response.body).to match(/<turbo-stream action="prepend" target="conversation_#{project.id}">/)
+      expect(response.body).to match(/<turbo-stream action="prepend" target="project_#{project.id}">/)
     end
 
     it "returns unprocessable_entity for invalid status" do

@@ -1,0 +1,11 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-semibold text-stone-900 dark:text-stone-100">New Project</h1>
+    <%= link_to "Back to Projects", projects_path, 
+          class: "px-4 py-2 bg-stone-200 text-stone-800 rounded-lg hover:bg-stone-300" %>
+  </div>
+
+  <div class="bg-white dark:bg-stone-800 shadow rounded-lg p-6">
+    <%= render 'form', project: @project %>
+  </div>
+</div>

@@ -22,7 +22,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen bg-stone-50 text-stone-900">
+    <%= render partial: "layouts/navbar" %>
+
+    <div class="container mx-auto px-4">
+      <%= render partial: "layouts/flashes" %>
+    </div>
+
     <%= yield %>
+
+    <%= render partial: "layouts/footer" %>
   </body>
 </html>

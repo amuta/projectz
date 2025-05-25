@@ -2,6 +2,6 @@
   <%= render partial: "projects/status", locals: { project: @project } %>
 <% end %>
 
-<%= turbo_stream.prepend "conversation_#{@project.id}" do %>
+<%= turbo_stream.prepend "project_#{@project.id}" do %>
   <%= render @project.change_logs.last %>
 <% end %>

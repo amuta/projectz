@@ -1,31 +1,40 @@
-<h1><%= @project.name %></h1>
 
-<%= turbo_stream_from "project_#{@project.id}_conversation" %>
+<div class="container mx-auto px-4 py-8 space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-semibold text-stone-600 dark:text-stone-100"> Project: <%= @project.name %></h1>
+    <%= link_to "Back to Projects", projects_path,
+          class: "px-3 py-1 bg-stone-200 text-stone-800 rounded-lg hover:bg-stone-300" %>
+  </div>
 
-<div class="status-frame" data-controller="status">
-  <%= turbo_frame_tag "project_#{@project.id}_status" do %>
-    <p>Status: <strong><%= @project.status %></strong></p>
-    <%= form_with model: @project, url: change_status_project_path(@project), method: :patch, data: { turbo_frame: "project_#{@project.id}_status" } do |f| %>
-      <%= f.select :status, Project.statuses.keys %>
-      <%= f.submit "Change" %>
+  <div class="bg-white dark:bg-stone-800 shadow rounded-lg p-4 mb-6">
+    <p class="text-sm text-stone-600 dark:text-stone-400">
+      <%= @project.description.present? ? @project.description : "No description available." %>
+    </p>
+  </div>
+
+  <div data-controller="status">
+    <%= render 'status', project: @project %>
+  </div>
+
+  <div>
+    <h2 class="text-xl font-medium text-stone-800 dark:text-stone-200 mb-2">New Comment</h2>
+    <%= turbo_frame_tag "new_comment_#{@project.id}" do %>
+      <%= render "comments/form", project: @project, comment: Comment.new %>
     <% end %>
-  <% end %>
+  </div>
+
+  <hr class="border-stone-200 dark:border-stone-700" />
+  
+  <div>
+    <h2 class="text-xl font-medium text-gray-800 dark:text-gray-200 mb-4">History</h2>
+    <%= turbo_frame_tag "project_#{@project.id}", \
+          class: "max-h-80 overflow-y-auto divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 rounded-lg px-4" do %>
+      <% entries = (@project.change_logs + @project.comments).sort_by(&:created_at).reverse %>
+      <% entries.each do |entry| %>
+        <div class="py-2">
+          <%= render entry %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
-
-<h3>New comment</h3>
-<%= turbo_frame_tag "new_comment_#{@project.id}" do %>
-  <%= render partial: "comments/form",
-             locals: { project: @project, comment: Comment.new } %>
-<% end %>
-
-<hr>
-
-<h2>Conversation history</h2>
-<%= turbo_frame_tag "conversation_#{@project.id}" do %>
-  <% (@project.change_logs + @project.comments).sort_by(&:created_at).reverse.each do |entry| %>
-    <%= render entry %>
-  <% end %>
-<% end %>
-
-<hr>
-

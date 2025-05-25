@@ -6,8 +6,8 @@ class Comment < ApplicationRecord
 
   after_create_commit -> {
     broadcast_append_to(
-      "project_#{project.id}_conversation",
-      target: "conversation_#{project.id}",
+      "project_#{project.id}_project",
+      target: "project_#{project.id}",
       partial: "comments/comment",
       locals: { comment: self }
     )

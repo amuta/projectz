@@ -1,11 +1,43 @@
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
-<%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+<div class="min-h-screen flex items-center justify-center bg-stone-50 py-12">
+  <div class="w-full max-w-sm bg-white p-6 rounded-lg shadow">
 
-<%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
+    <%= form_with url: session_path, class: "space-y-6" do |f| %>
+      <div>
+        <%= f.label :email_address, "Email address", class: "block mb-1 text-sm font-medium text-stone-700" %>
+        <%= f.email_field :email_address,
+              required: true,
+              autofocus: true,
+              autocomplete: "username",
+              placeholder: "you@example.com",
+              value: params[:email_address],
+              class: "block w-full px-3 py-2 border border-stone-300 rounded-lg
+                     bg-stone-50 text-stone-900 text-sm focus:outline-none
+                     focus:ring-2 focus:ring-stone-500 focus:border-stone-500" %>
+      </div>
 
-<%= link_to "Forgot password?", new_password_path %>
+      <div>
+        <%= f.label :password, "Password", class: "block mb-1 text-sm font-medium text-stone-700" %>
+        <%= f.password_field :password,
+              required: true,
+              autocomplete: "current-password",
+              placeholder: "••••••••",
+              maxlength: 72,
+              class: "block w-full px-3 py-2 border border-stone-300 rounded-lg
+                     bg-stone-50 text-stone-900 text-sm focus:outline-none
+                     focus:ring-2 focus:ring-stone-500 focus:border-stone-500" %>
+      </div>
+
+      <div>
+        <%= f.submit "Sign in",
+              class: "w-full py-2.5 text-white bg-stone-600 rounded-lg
+                     hover:bg-stone-700 focus:outline-none focus:ring-2
+                     focus:ring-stone-500 font-medium text-sm" %>
+      </div>
+    <% end %>
+
+    <div class="mt-4 text-center">
+      <%= link_to "Forgot password?", new_password_path,
+            class: "text-sm text-stone-600 hover:underline" %>
+    </div>
+  </div>
+</div>

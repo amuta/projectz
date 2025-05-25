@@ -8,12 +8,12 @@ Our Tech Stack can be found [here](https://www.notion.so/Technical-tools-f0492d3
 
 # Task
 
-Use Ruby on Rails to build a project conversation history. A user should be able to:
+Use Ruby on Rails to build a project project history. A user should be able to:
 
 - leave a comment
 - change the status of the project
 
-The project conversation history should list comments and changes in status. 
+The project project history should list comments and changes in status. 
 
 Please don’t spend any more than 3 hours on this task.
 
@@ -25,7 +25,7 @@ To this extent:
 
 - Please write down the questions you would have asked your colleagues
 - Include answers that you might expect from them
-- Then build a project conversation based on the answers to the questions you raised.
+- Then build a project project based on the answers to the questions you raised.
 
 # Submission
 

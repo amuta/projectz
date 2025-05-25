@@ -1,4 +1,14 @@
-<%= form_with model: [project, comment], local: true, data: { turbo_frame: "conversation_#{project.id}" } do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit "Post" %>
+<%= form_with model: [project, comment], local: true, data: { turbo_frame: "project_#{project.id}" }, class: "space-y-4" do |f| %>
+  <div>
+    <%= f.label :body, "Your comment", class: "block mb-1 text-sm font-medium text-stone-700 dark:text-stone-300" %>
+    <%= f.text_area :body,
+          rows: 3,
+          placeholder: "Write your comment...",
+          class: "block w-full px-3 py-2 border border-stone-300 rounded-lg bg-stone-50 text-stone-900 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-stone-500 dark:bg-stone-700 dark:border-stone-600 dark:placeholder-stone-400 dark:text-white" %>
+  </div>
+  <div>
+    <%= f.submit "Post Comment",
+          class: "px-4 py-2 bg-stone-600 text-white rounded-lg hover:bg-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-500 font-medium text-sm" %>
+  </div>
 <% end %>
