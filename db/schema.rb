@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_045728) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_050802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "change_logs", force: :cascade do |t|
+    t.string "recordable_type", null: false
+    t.bigint "recordable_id", null: false
+    t.jsonb "changed_data"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recordable_type", "recordable_id"], name: "index_change_logs_on_recordable"
+    t.index ["user_id"], name: "index_change_logs_on_user_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -48,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_045728) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "change_logs", "users"
   add_foreign_key "comments", "projects"
   add_foreign_key "comments", "users"
   add_foreign_key "sessions", "users"
