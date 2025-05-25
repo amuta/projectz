@@ -18,19 +18,17 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] || "postgres://postgres:@localhost:5432" %> 
 
 
 development:
   <<: *default
   database: projectz_development
-  username: postgres
-  host: localhost
-  port: 5432
 
 test:
   <<: *default
   database: projectz_test
-  url: <%= ENV["DATABASE_URL"] || "postgres://postgres:@localhost:5432" %> 
+  
 
 production:
   primary: &primary_production
