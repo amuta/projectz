@@ -15,10 +15,7 @@ module SessionTestHelper
   end
 
   def sign_out
-    Current.session&.destroy
-    ActionDispatch::TestRequest
-      .create
-      .cookie_jar
-      .delete(:session_id)
+    Current.user.sessions.destroy_all
+    Current.session = nil
   end
 end

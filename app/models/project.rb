@@ -8,7 +8,7 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :status, presence: true, inclusion: { in: statuses.keys }
 
-  after_create :comment_creation
+  after_create :comment_creation, if: -> { Current.user.present? }
 
   private
 
