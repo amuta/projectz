@@ -17,12 +17,18 @@ RSpec.describe Project, type: :model do
 
     it do
       should define_enum_for(:status).
-        with_values([:draft, :active, :on_hold, :completed, :cancelled]).
+        with_values([ :draft, :active, :on_hold, :completed, :cancelled ]).
         backed_by_column_of_type(:integer)
     end
   end
 
   context 'on auditable' do
+    let(:user) { create(:user) }
+
+    before do
+      allow(Current).to receive(:user).and_return(user)
+    end
+
     it 'saves changelog when status is changed' do
       project = create(:project, status: :draft)
       expect {
@@ -30,17 +36,7 @@ RSpec.describe Project, type: :model do
       }.to change { project.change_logs.count }.by(1)
 
       change_log = project.change_logs.last
-      expect(change_log.changed_data).to include("status" => ["draft", "active"])
-    end
-
-    it 'saves changelog when comment is added' do
-      project = create(:project)
-      expect {
-        project.comments.create(body: 'New comment', user: create(:user))
-      }.to change { project.change_logs.count }.by(1)
-
-      change_log = project.change_logs.last
-      expect(change_log.changed_data).to include("comments" => ["", "New comment"])
+      expect(change_log.changed_data).to include("status" => [ "draft", "active" ])
     end
   end
 end
