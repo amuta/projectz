@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  #
+  # logout
+  get "logout" => "sessions#destroy", as: :logout
 
   resources :projects, only: %i[index new create show edit update] do
     resources :comments, only: :create
