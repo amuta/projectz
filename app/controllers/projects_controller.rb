@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
       redirect_to @project, notice: "Project updated"
     else
       message = @project.errors.full_messages.join(", ")
-      render :edit, status: :unprocessable_entity , alert: "Error updating project: #{message}"
+      render :edit, status: :unprocessable_entity, alert: "Error updating project: #{message}"
     end
   end
 
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
     unless Project.statuses.key?(new_status)
       return head :unprocessable_entity
     end
-      
+
     old_status = @project.status
     if @project.update(status: new_status)
       @project.change_logs.create!(
