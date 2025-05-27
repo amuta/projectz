@@ -5,6 +5,7 @@
 
 app = 'projectz'
 primary_region = 'gru'
+release_command = 'bundle exec rails db:migrate"'
 console_command = '/rails/bin/rails console'
 
 [build]
